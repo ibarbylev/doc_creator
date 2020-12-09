@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from docs.models import Doc
 
@@ -39,10 +39,39 @@ class DocsCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Create page'
-        context['heading_text'] = f'Creating New Document'
+        context['title'] = 'Updating page'
+        context['heading_text'] = f'Updating New Document'
         context['description'] = '''
         On this page you can create a new document. 
         Please do not forget to add the html-template for this document to the folder: templates/docs/
         '''
+        return context
+
+
+class DocsUpdateView(UpdateView):
+    model = Doc
+    fields = '__all__'
+    success_url = reverse_lazy('index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Create page'
+        doc = context['doc']
+        context['heading_text'] = f'Creating of {doc.doc_name}'
+        context['description'] = f'On this page you can update the document {doc.doc_name}.'
+        return context
+
+
+class DocsDeleteView(DeleteView):
+    model = Doc
+    fields = '__all__'
+    success_url = reverse_lazy('index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Create page'
+        doc = context['doc']
+        context['heading_text'] = f'Delete of {doc.doc_name}'
+        context['description'] = f'On this page you can update the document {doc.doc_name}.' \
+                                 f'This operation cannot be canceled, so please be careful!'
         return context

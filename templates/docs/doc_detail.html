@@ -19,7 +19,13 @@
                         <h4 class="my-0 fw-normal">Free</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
+                        {% if doc.doc_price > 0 %}
+                            <h1 class="card-title pricing-card-title">${{ doc.doc_price }}
+                                <small class="text-muted">/ mo</small>
+                            </h1>
+                        {% else %}
+                            <br><br>
+                        {% endif %}
                         <ul class="list-unstyled mt-3 mb-4">
                             <li>10 users included</li>
                             <li>2 GB of storage</li>
@@ -27,9 +33,16 @@
                             <li>Help center access</li>
                         </ul>
                         <img src="{{ doc.doc_image.url }}" alt="doc's photo">
-                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                        <br><br>
+                        <button type="button" class="btn btn-lg btn-block btn-primary">
+                            Fill this template <br> with your data
+                        </button>
                     </div>
-                </div>
+                    <div class="card-footer">
+                        <a type="button" class="btn btn-success" href="{% url 'doc_update' doc.pk %}">Update</a>
+                        <a type="button" class="btn btn-danger" href="{% url 'doc_delete' doc.pk %}">Delete</a>
+                    </div>
+             </div>
             </div>
 
         </div>
