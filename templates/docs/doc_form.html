@@ -8,14 +8,20 @@
 {% block description %}{{ description }}{% endblock %}
 
 {% block content %}
-    <form method="post" action="{% url 'doc_create' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {% buttons %}
-            <button type="submit" class="btn btn-primary">
-              Submit
-            </button>
-        {% endbuttons %}
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
 
+            </div>
+            <form method="post" action="{% url 'doc_create' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                      Submit
+                    </button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
 {% endblock %}

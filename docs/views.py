@@ -36,3 +36,13 @@ class DocsCreateView(CreateView):
     model = Doc
     fields = '__all__'
     success_url = reverse_lazy('index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Create page'
+        context['heading_text'] = f'Creating New Document'
+        context['description'] = '''
+        On this page you can create a new document. 
+        Please do not forget to add the html-template for this document to the folder: templates/docs/
+        '''
+        return context
