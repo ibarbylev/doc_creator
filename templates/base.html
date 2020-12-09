@@ -25,7 +25,7 @@
         <ul class="navbar-nav mr-auto">
             {% if True %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Create Document <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'doc_create' %}">Create Document <span class="sr-only">(current)</span></a>
                 </li>
             {% endif %}
             <li class="nav-item">
@@ -43,8 +43,6 @@
   </nav>
 
 
-  </div>
-</nav>
 </header>
 
 
