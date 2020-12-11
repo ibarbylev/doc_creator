@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'bootstrap4',
 
+    'authentication.apps.AuthenticationConfig',
     'docs.apps.DocsConfig',
 ]
 
@@ -94,16 +95,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    #     'NAME': 'django.contrib.authentication.password_validation.UserAttributeSimilarityValidator',
     # },
     # {
-    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    #     'NAME': 'django.contrib.authentication.password_validation.MinimumLengthValidator',
     # },
     # {
-    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    #     'NAME': 'django.contrib.authentication.password_validation.CommonPasswordValidator',
     # },
     # {
-    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    #     'NAME': 'django.contrib.authentication.password_validation.NumericPasswordValidator',
     # },
 ]
 
@@ -132,3 +133,5 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = '/authentication/login/'
