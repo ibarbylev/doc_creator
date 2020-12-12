@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block heading_text %}{{ heading_text }}{% endblock %}
+
+{% block description %}{{ description }}{% endblock %}
+
+{% block content %}
+
+{% load bootstrap4 %}
+
+{# Display a form #}
+    <div class="content">
+        <div class="row">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-link active" id="nav-home-tab" data-toggle="tab"
+                       href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Log In</a>
+                    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                       role="tab" aria-controls="nav-profile" aria-selected="false">Registration</a>
+                </div>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    place for login
+                    <br><br><br><br><br>
+
+{#                    <form action="{% url 'login' %}" method="post" class="form">#}
+{#                        {% csrf_token %}#}
+{#                        {% bootstrap_form login_form %}#}
+{#                        {% buttons %}#}
+{#                            <button type="submit" class="btn btn-primary">Submit</button>#}
+{#                        {% endbuttons %}#}
+{#                    </form>#}
+
+
+                    <br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <form action="{% url 'register' %}" method="post" class="form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form user_form %}
+                        {% bootstrap_form profile_form %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

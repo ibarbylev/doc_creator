@@ -12,6 +12,7 @@ class RegisterView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['heading_text'] = 'Registration'
         context['user_form'] = UserForm()
         context['profile_form'] = ProfileForm()
         return context
@@ -62,7 +63,7 @@ class RegisterView(TemplateView):
 
 
 def login_user(request):
-    context = {'login_form': LoginForm()}
+    context = {'heading_text': 'Log In', 'login_form': LoginForm()}
 
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
@@ -74,6 +75,7 @@ def login_user(request):
                 login(request, user)
                 return redirect('index')
             context = {
+                'heading_text': 'Log In',
                 'login_form': LoginForm(),
                 'attention': f'The user with name {username} is not registered in the system!'}
 
@@ -81,6 +83,7 @@ def login_user(request):
             context = {'login_form': login_form}
 
     return render(request, 'auth/login.html', context)
+
 
 def logout_user(request):
     logout(request)
