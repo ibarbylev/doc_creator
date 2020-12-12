@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'authentication.apps.AuthenticationConfig',
     'docs.apps.DocsConfig',
+    'production.apps.ProductionConfig',
 ]
 
 MIDDLEWARE = [
