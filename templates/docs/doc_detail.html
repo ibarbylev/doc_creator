@@ -16,7 +16,7 @@
             <div class="col">
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header">
-                        <h4 class="my-0 fw-normal">Free</h4>
+                        <h4 class="my-0 fw-normal">{{ doc.doc_name }}</h4>
                     </div>
                     <div class="card-body">
                         {% if doc.doc_price > 0 %}
@@ -27,10 +27,10 @@
                             <br><br>
                         {% endif %}
                         <ul class="list-unstyled mt-3 mb-4">
-                            <li>10 users included</li>
-                            <li>2 GB of storage</li>
-                            <li>Email support</li>
-                            <li>Help center access</li>
+                            <li>Good Practice!</li>
+                            <li>This document  </li>
+                            <li>has been verified by</li>
+                            <li>our best lawyers!</li>
                         </ul>
                         <img src="{{ doc.doc_image.url }}" alt="doc's photo">
                         <br><br>

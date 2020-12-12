@@ -4,9 +4,12 @@ from authentication.models import User
 from docs.models import Doc
 
 
-# class AvailableDocs(models.Model):
-#     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-#     doc_name = models.ForeignKey(Doc, on_delete=models.CASCADE)
+class AvailableDocs(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    doc = models.ForeignKey(Doc, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'for owner {str(self.owner).upper()}: {self.doc.doc_name}'
 
 
 class Сustomer(models.Model):
@@ -20,7 +23,7 @@ class Сustomer(models.Model):
 
 
 # class DocumentsJournal(models.Model):
-#     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
 #     doc_name = models.ForeignKey(Doc, on_delete=models.CASCADE)
 #     principal = models.ForeignKey(Сustomer, on_delete=models.CASCADE)
 #     attorney = models.ForeignKey(Сustomer, on_delete=models.CASCADE)
