@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from production.models import Сustomer
 
@@ -48,7 +48,6 @@ class CustomerCreate(CreateView):
 class CustomerUpdate(UpdateView):
     model = Сustomer
     fields = ['first_name', 'last_name', 'email']
-    # template_name = 'production/сustomer_update.html'
     success_url = reverse_lazy('customer_list')
 
     def get_context_data(self, **kwargs):
@@ -59,13 +58,17 @@ class CustomerUpdate(UpdateView):
         context['description'] = f''
         return context
 
-    # def get_object(self, queryset=None, pk='pk'):
-    #     if queryset is None:
-    #         queryset = self.get_queryset()
-    #     return get_object_or_404(queryset, pk=self.kwargs['pk'])
 
-    # def form_valid(self, form):
-    #     сustomer = form.save(commit=False)
-    #     # сustomer.owner = self.request.user
-    #     сustomer.save()  # This is redundant, see comments.
-    #     return super().form_valid(form)
+@method_decorator(login_required, name='dispatch')
+class CustomerDelete(DeleteView):
+    model = Сustomer
+    fields = ['first_name', 'last_name', 'email']
+    # template_name = 'production/сustomer_update.html'
+    success_url = reverse_lazy('customer_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Deleting page'
+        сustomer = context['сustomer']
+        context['heading_text'] = f'Deleting Customer {сustomer}'
+        return context

@@ -27,7 +27,7 @@
                     <td>{{ customer.last_name }}</td>
                     <td>{{ customer.email }}</td>
                     <td><a href="{% url 'customer_update' customer.pk %}">update</a></td>
-                    <td><a href="{% url 'index' %}">delete</a></td>
+                    <td><a href="{% url 'customer_delete' customer.pk %}">delete</a></td>
                 </tr>
             {% endif %}
         {% endfor %}
