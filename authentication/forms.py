@@ -4,16 +4,15 @@ from django.contrib.auth.models import User
 from authentication.models import UserProfile
 
 
-class UserForm(forms.Form):
+class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['email'].required = True
 
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
-    email = forms.CharField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email', 'first_name', 'last_name']
+        widgets = {'password': forms.PasswordInput()}
 
 
 class ProfileForm(forms.ModelForm):
