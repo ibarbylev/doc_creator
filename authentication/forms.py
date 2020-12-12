@@ -21,8 +21,6 @@ class ProfileForm(forms.ModelForm):
         exclude = ('user',)
 
 
-class LoginForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'password']
-        widgets = {'password': forms.PasswordInput()}
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput())

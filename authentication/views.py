@@ -1,8 +1,10 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from django.views.generic.base import View
 
-from authentication.forms import UserForm, ProfileForm
+from authentication.forms import UserForm, ProfileForm, LoginForm
 
 
 class RegisterView(TemplateView):
@@ -33,9 +35,53 @@ class RegisterView(TemplateView):
         return render(request, 'auth/register.html', context)
 
 
-class LoginView:
-    pass
+# class LoginView(View):
+#     template_name = 'auth/login.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['login_form'] = LoginForm()
+#         return context
+#
+#     def post(self, request):
+#         login_form = LoginForm(request.POST)
+#         # user = request.user
+#         if login_form.is_valid():
+#             user = login_form.get_user()
+#             login(request, user)
+#             # user.last_login = timezone.now()
+#             user.save()
+#
+#             return redirect('index')
+#
+#         context = {
+#             # 'user': user,
+#             'login_form': login_form,
+#         }
+#         return render(request, 'auth/login.html', context)
 
 
-class LogoutView:
-    pass
+def login_user(request):
+    context = {'login_form': LoginForm()}
+
+    if request.method == 'POST':
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            username = login_form.cleaned_data['username']
+            password = login_form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                return redirect('index')
+            context = {
+                'login_form': LoginForm(),
+                'attention': f'The user with name {username} is not registered in the system!'}
+
+        else:
+            context = {'login_form': login_form}
+
+    return render(request, 'auth/login.html', context)
+
+def logout_user(request):
+    logout(request)
+    return redirect('index')
