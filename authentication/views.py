@@ -23,8 +23,13 @@ class RegisterView(TemplateView):
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST, request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            # user.set_password(UserForm.cleaned_data['password'])
+            user = User(
+                username=user_form.cleaned_data['username'],
+                email=user_form.cleaned_data['email'],
+                first_name=user_form.cleaned_data['first_name'],
+                last_name=user_form.cleaned_data['last_name'],
+            )
+            user.set_password(user_form.cleaned_data['password'])
             user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
