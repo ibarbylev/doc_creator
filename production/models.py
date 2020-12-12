@@ -1,6 +1,6 @@
 from django.db import models
 
-from authentication.models import UserProfile
+from authentication.models import User
 from docs.models import Doc
 
 
@@ -10,7 +10,7 @@ from docs.models import Doc
 
 
 class Сustomer(models.Model):
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)

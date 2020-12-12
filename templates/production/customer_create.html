@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block heading_text %}{{ heading_text }}{% endblock %}
+
+{% block description %}{{ description }}{% endblock %}
+
+{% block content %}
+    <h4></h4>
+    <div style="min-height: 500px">
+
+        <h2></h2>
+        <form method="post" action="{% url 'customer_create' %}">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                  Submit
+                </button>
+            {% endbuttons %}
+        </form>
+
+   </div>
+{% endblock %}
