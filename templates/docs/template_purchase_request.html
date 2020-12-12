@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block heading_text %}{{ heading_text }}{% endblock %}
+
+{% block description %}{{ description }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+
+            </div>
+            <form method="post">{% csrf_token %}
+                <h2>You have just submitted a purchase request for the template: <b>&quot;{{ doc }}&quot;</b>.</h2>
+                    <h2>We will reply to you within one business day.</h2>
+                <br><br>
+                <a type="button" class="btn btn-success btn-lg" href="{% url 'index' %}">Come Back</a>
+                <br><br>
+                <br><br>
+                <br><br>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

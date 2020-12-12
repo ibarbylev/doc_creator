@@ -94,3 +94,19 @@ class DocsDeleteView(UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
+
+
+@method_decorator(login_required, name='dispatch')
+class TemplatePurchaseRequest(DeleteView):
+    model = Doc
+    context_object_name = 'doc'
+    template_name = 'docs/template_purchase_request.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Purchase request'
+        doc = context['doc']
+        context['heading_text'] = f'Purchase request for the template "{doc}"'
+        # context['description'] = f'On this page you can update the document {doc.doc_name}.'
+        return context
+
