@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -7,7 +8,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from docs.models import Doc
 
 
-# @method_decorator(login_required, name='dispatch')
 class DocsListIndex(ListView):
     model = Doc
 
@@ -22,6 +22,7 @@ class DocsListIndex(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class DocsDetailsIndex(DetailView):
     model = Doc
     context_object_name = 'doc'
@@ -35,7 +36,8 @@ class DocsDetailsIndex(DetailView):
         return context
 
 
-class DocsCreateView(CreateView):
+@method_decorator(login_required, name='dispatch')
+class DocsCreateView(UserPassesTestMixin, CreateView):
     model = Doc
     fields = '__all__'
     success_url = reverse_lazy('index')
@@ -50,7 +52,11 @@ class DocsCreateView(CreateView):
         '''
         return context
 
+    def test_func(self):
+        return self.user.is_superuser or self.user.is_staff
 
+
+@method_decorator(login_required, name='dispatch')
 class DocsUpdateView(UpdateView):
     model = Doc
     fields = '__all__'
@@ -65,6 +71,7 @@ class DocsUpdateView(UpdateView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class DocsDeleteView(DeleteView):
     model = Doc
     fields = '__all__'

@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.db import transaction
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 from django.views.generic.base import View
@@ -17,11 +18,14 @@ class RegisterView(TemplateView):
         context['profile_form'] = ProfileForm()
         return context
 
+    @transaction.atomic
     def post(self, request):
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST, request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
+            # user.set_password(UserForm.cleaned_data['password'])
+            user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
