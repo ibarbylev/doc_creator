@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block heading_text %}{{ heading_text }}{% endblock %}
+
+{% block description %}{{ description }}{% endblock %}
+
+{% block content %}
+    <h4></h4>
+    <div style="min-height: 500px">
+    <table style="width:100%">
+        <tr>
+            <th>Owner_Name</th>
+            <th>Doc_Name</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for doc in object_list %}
+            {% if doc.owner|lower == user.username|lower %}
+                <tr>
+                    <td>{{ doc.owner }}</td>
+                    <td>{{ doc.doc_name }} {{ doc.doc }}</td>
+                    <td><a href="{% url 'index' %}">update</a></td>
+                    <td><a href="{% url 'index' %}">delete</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+     <h3>
+{#        <a type="button" href="{% url 'customer_create' %}">Create a Customer</a>#}
+    </h3>
+   </div>
+{% endblock %}

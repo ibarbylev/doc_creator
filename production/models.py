@@ -9,7 +9,7 @@ class AvailableDocs(models.Model):
     doc = models.ForeignKey(Doc, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'for owner {str(self.owner).upper()}: {self.doc.doc_name}'
+        return f'for owner {str(self.owner).upper()}: {self.doc}'
 
 
 class Сustomer(models.Model):

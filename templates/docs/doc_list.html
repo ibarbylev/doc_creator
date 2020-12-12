@@ -30,9 +30,18 @@
                     <img src="{{ doc.doc_image.url }}" alt="doc's photo">
                     <br>
                     <br>
+                    {% if user.is_staff %}
+                        <a type="button" class="btn btn-lg btn-block btn-secondary"
+                           href="{% url 'doc_details' doc.pk %}">
+                            Change the template
+                        </a>
+                    {% endif %}
+                    <br>
+                    <br>
                     <a type="button" class="btn btn-lg btn-block btn-primary"
-                       href="{% url 'doc_details' doc.pk %}">
-                        Select the template
+{#                       href="{% url 'users_docs_add' doc.pk %}"#}
+                    >
+                        Add Document to The List AvailableDocs
                     </a>
                 </div>
             </div>
