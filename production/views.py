@@ -62,8 +62,6 @@ class CustomerUpdate(UpdateView):
 @method_decorator(login_required, name='dispatch')
 class CustomerDelete(DeleteView):
     model = Сustomer
-    fields = ['first_name', 'last_name', 'email']
-    # template_name = 'production/сustomer_update.html'
     success_url = reverse_lazy('customer_list')
 
     def get_context_data(self, **kwargs):
@@ -76,6 +74,7 @@ class CustomerDelete(DeleteView):
 # Views for users' own documents ====================================
 
 
+@method_decorator(login_required, name='dispatch')
 class UsersDocsList(ListView):
     model = AvailableDocs
 
@@ -86,5 +85,21 @@ class UsersDocsList(ListView):
         return context
 
 
-class UsersDocsAdd(CreateView):
+@method_decorator(login_required, name='dispatch')
+class UsersDocsDelete(DeleteView):
     model = AvailableDocs
+    success_url = reverse_lazy('users_docs_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Deleting page'
+        availabledocs = context['availabledocs']
+        context['heading_text'] = f'Deleting Customer {availabledocs}'
+        return context
+
+
+
+# class UsersDocsAdd(CreateView):
+#     model = AvailableDocs
+
+    # def post(self, request, pk, *args, **kwargs):

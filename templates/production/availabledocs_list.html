@@ -14,7 +14,7 @@
         <tr>
             <th>Owner_Name</th>
             <th>Doc_Name</th>
-            <th>Update</th>
+{#            <th>Update</th>#}
             <th>Delete</th>
         </tr>
         {% for doc in object_list %}
@@ -22,8 +22,8 @@
                 <tr>
                     <td>{{ doc.owner }}</td>
                     <td>{{ doc.doc_name }} {{ doc.doc }}</td>
-                    <td><a href="{% url 'index' %}">update</a></td>
-                    <td><a href="{% url 'index' %}">delete</a></td>
+{#                    <td><a href="{% url 'index' %}">update</a></td>#}
+                    <td><a href="{% url 'users_docs_delete' doc.pk %}">delete</a></td>
                 </tr>
             {% endif %}
         {% endfor %}
