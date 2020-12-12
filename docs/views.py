@@ -23,7 +23,7 @@ class DocsListIndex(ListView):
 
 
 @method_decorator(login_required, name='dispatch')
-class DocsDetailsIndex(DetailView):
+class DocsDetailsIndex(UserPassesTestMixin, DetailView):
     model = Doc
     context_object_name = 'doc'
 
@@ -34,6 +34,9 @@ class DocsDetailsIndex(DetailView):
         context['heading_text'] = f'Details of {doc.doc_name}'
         context['description'] = ''
         return context
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
 
 
 @method_decorator(login_required, name='dispatch')
@@ -53,11 +56,11 @@ class DocsCreateView(UserPassesTestMixin, CreateView):
         return context
 
     def test_func(self):
-        return self.user.is_superuser or self.user.is_staff
+        return self.request.user.is_superuser or self.request.user.is_staff
 
 
 @method_decorator(login_required, name='dispatch')
-class DocsUpdateView(UpdateView):
+class DocsUpdateView(UserPassesTestMixin, UpdateView):
     model = Doc
     fields = '__all__'
     success_url = reverse_lazy('index')
@@ -70,9 +73,12 @@ class DocsUpdateView(UpdateView):
         context['description'] = f'On this page you can update the document {doc.doc_name}.'
         return context
 
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
+
 
 @method_decorator(login_required, name='dispatch')
-class DocsDeleteView(DeleteView):
+class DocsDeleteView(UserPassesTestMixin, DeleteView):
     model = Doc
     fields = '__all__'
     success_url = reverse_lazy('index')
@@ -85,3 +91,6 @@ class DocsDeleteView(DeleteView):
         context['description'] = f'On this page you can update the document {doc.doc_name}.' \
                                  f'This operation cannot be canceled, so please be careful!'
         return context
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
