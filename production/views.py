@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 
 from production.models import Сustomer
 
@@ -28,9 +28,6 @@ class CustomerList(ListView):
 class CustomerCreate(CreateView):
     model = Сustomer
     fields = ['first_name', 'last_name', 'email']
-    # fields = '__all__'
-    template_name = 'production/customer_create.html'
-    # exclude = ('owner', )
     success_url = reverse_lazy('customer_list')
 
     def get_context_data(self, **kwargs):
@@ -41,11 +38,34 @@ class CustomerCreate(CreateView):
         return context
 
     def form_valid(self, form):
-        customer = form.save(commit=False)
-        customer.owner = self.request.user
-        customer.save()  # This is redundant, see comments.
+        сustomer = form.save(commit=False)
+        сustomer.owner = self.request.user
+        сustomer.save()  # This is redundant, see comments.
         return super(CustomerCreate, self).form_valid(form)
 
-    # def post(self, request, *args, **kwargs):
-    #     pass
-    #     customer = form.form.save(commit=False)
+
+@method_decorator(login_required, name='dispatch')
+class CustomerUpdate(UpdateView):
+    model = Сustomer
+    fields = ['first_name', 'last_name', 'email']
+    # template_name = 'production/сustomer_update.html'
+    success_url = reverse_lazy('customer_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Updating page'
+        сustomer = context['сustomer']
+        context['heading_text'] = f'Updating Customer {сustomer}'
+        context['description'] = f''
+        return context
+
+    # def get_object(self, queryset=None, pk='pk'):
+    #     if queryset is None:
+    #         queryset = self.get_queryset()
+    #     return get_object_or_404(queryset, pk=self.kwargs['pk'])
+
+    # def form_valid(self, form):
+    #     сustomer = form.save(commit=False)
+    #     # сustomer.owner = self.request.user
+    #     сustomer.save()  # This is redundant, see comments.
+    #     return super().form_valid(form)

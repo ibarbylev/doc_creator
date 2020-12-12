@@ -13,7 +13,7 @@
     <div style="min-height: 500px">
 
         <h2></h2>
-        <form method="post" action="{% url 'customer_create' %}">
+        <form method="post" action="">
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
