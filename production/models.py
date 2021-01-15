@@ -26,4 +26,5 @@ class DocumentsJournal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     doc_name = models.ForeignKey(Doc, on_delete=models.CASCADE)
     customer = models.ForeignKey(Сustomer, on_delete=models.CASCADE)
+
     # attorney = models.ForeignKey(Сustomer, on_delete=models.CASCADE)
