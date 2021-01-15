@@ -27,7 +27,6 @@ class UserForm(forms.ModelForm):
         return email
 
 
-
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile

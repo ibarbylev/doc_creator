@@ -22,8 +22,8 @@ class Сustomer(models.Model):
         return f'for owner {str(self.owner).upper()}: {self.first_name}.{self.last_name}'
 
 
-# class DocumentsJournal(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     doc_name = models.ForeignKey(Doc, on_delete=models.CASCADE)
-#     principal = models.ForeignKey(Сustomer, on_delete=models.CASCADE)
-#     attorney = models.ForeignKey(Сustomer, on_delete=models.CASCADE)
+class DocumentsJournal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    doc_name = models.ForeignKey(Doc, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Сustomer, on_delete=models.CASCADE)
+    # attorney = models.ForeignKey(Сustomer, on_delete=models.CASCADE)
