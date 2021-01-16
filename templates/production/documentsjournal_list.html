@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block heading_text %}{{ heading_text }}{% endblock %}
+
+{% block description %}{{ description }}{% endblock %}
+
+{% block content %}
+
+{% load bootstrap4 %}
+
+    <h2 style="text-align: end;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </h2>
+        <div>
+            <form action="{% url 'register' %}" method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">Create a document and fill it out</button>
+                {% endbuttons %}
+            </form>
+        </div>
+
+
+{% endblock %}

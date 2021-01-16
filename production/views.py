@@ -4,7 +4,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from production.models import Сustomer, AvailableDocs
+from production.forms import DocumentsJournalForm
+from production.models import Сustomer, AvailableDocs, DocumentsJournal
 
 
 @method_decorator(login_required, name='dispatch')
@@ -27,7 +28,8 @@ class CustomerList(ListView):
 # @method_decorator(login_required, name='dispatch')
 class CustomerCreate(CreateView):
     model = Сustomer
-    fields = ['first_name', 'last_name', 'email']
+    # fields = ['first_name', 'last_name', 'email']
+    fields = ['first_name', 'last_name']
     success_url = reverse_lazy('customer_list')
 
     def get_context_data(self, **kwargs):
@@ -98,8 +100,15 @@ class UsersDocsDelete(DeleteView):
         return context
 
 
+class UsersDocsFill(ListView):
+    model = DocumentsJournal
+    success_url = reverse_lazy('users_docs_not_filing_fields')
 
-# class UsersDocsAdd(CreateView):
-#     model = AvailableDocs
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Create Docs'
+        context['form'] = DocumentsJournalForm()
+        context['heading_text'] = f'Choose DocName and Customer to fill out of document'
+        return context
 
     # def post(self, request, pk, *args, **kwargs):

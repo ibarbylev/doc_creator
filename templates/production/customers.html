@@ -15,7 +15,7 @@
             <th>Owner_Name</th>
             <th>First_Name</th>
             <th>Last_Name</th>
-            <th>Email</th>
+{#            <th>Email</th>#}
             <th>Update</th>
             <th>Delete</th>
         </tr>
@@ -25,7 +25,7 @@
                     <td>{{ customer.owner }}</td>
                     <td>{{ customer.first_name }}</td>
                     <td>{{ customer.last_name }}</td>
-                    <td>{{ customer.email }}</td>
+{#                    <td>{{ customer.email }}</td>#}
                     <td><a href="{% url 'customer_update' customer.pk %}">update</a></td>
                     <td><a href="{% url 'customer_delete' customer.pk %}">delete</a></td>
                 </tr>
