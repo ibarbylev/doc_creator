@@ -100,6 +100,7 @@ class UsersDocsDelete(DeleteView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class UsersDocsFill(ListView):
     model = DocumentsJournal
     success_url = reverse_lazy('users_docs_not_filing_fields')

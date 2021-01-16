@@ -22,7 +22,6 @@
                         <br><br>
                     {% endif %}
                     <ul class="list-unstyled mt-3 mb-4">
-                        <li>Good Practice!</li>
                         <li>This document  </li>
                         <li>has been verified by</li>
                         <li>our best lawyers!</li>
@@ -38,6 +37,11 @@
                     {% endif %}
                     <br>
                     <br>
+                    <a type="button" class="btn btn-lg btn-block btn-success"
+                       href="{% url 'doc_details_for_users' doc.pk %}"
+                    >
+                        Document Details
+                    </a>
                     <a type="button" class="btn btn-lg btn-block btn-primary"
                        href="{% url 'doc_purchase_request' doc.pk %}"
                     >

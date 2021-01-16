@@ -36,7 +36,26 @@ class DocsDetailsIndex(UserPassesTestMixin, DetailView):
         return context
 
     def test_func(self):
-        return self.request.user.is_superuser or self.request.user.is_staff
+        # return self.request.user.is_superuser or self.request.user.is_staff
+        return True
+
+
+@method_decorator(login_required, name='dispatch')
+class DocsDetailsForUsersIndex(UserPassesTestMixin, DetailView):
+    model = Doc
+    context_object_name = 'doc'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Details page'
+        doc = context['doc']
+        context['heading_text'] = f'Details of {doc.doc_name}'
+        context['description'] = ''
+        return context
+
+    def test_func(self):
+        # return self.request.user.is_superuser or self.request.user.is_staff
+        return True
 
 
 @method_decorator(login_required, name='dispatch')
